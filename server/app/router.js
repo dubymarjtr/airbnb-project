@@ -13,4 +13,10 @@ router.get("/", (_, res) => {
     res.send("Hello from API router");
 });
 
+// get all listings
+router.get("/listings", async (_, res) => {
+    const listingsData = await collection.find().toArray();
+    res.json(listingsData);
+});
+
 export default router;
