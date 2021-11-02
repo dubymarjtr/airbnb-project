@@ -12,7 +12,7 @@ app.get("/", (_, res) => {
 
 app.use("/api", router);
 
-// TODO: Use json middleware (if needed)
+app.use(express.json());
 
 // TODO: Mount the routes (maybe 🤔 /api)
 
