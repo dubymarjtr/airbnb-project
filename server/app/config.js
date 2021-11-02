@@ -6,8 +6,9 @@ dotenv.config();
 
 export default {
   port: process.env.PORT || 3000,
-  db:
-    process.env.DB_CLIENT_URL ||
-    // Use localhost if no DB_CLIENT_URL is provided
-    "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000",
-};
+  db: {
+    clientURL: process.env.DB_CLIENT_URL,
+    name: "sample_airbnb",
+    collectionName: "listingsAndReviews"
+  }
+}
