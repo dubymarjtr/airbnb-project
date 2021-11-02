@@ -8,6 +8,9 @@ const collection = client
 
 const router = new Router();
 
-// TODO: Add routes here (maybe 🤔 start with a GET test route)
+// localhost:3000/api
+router.get("/", (_, res) => {
+    res.send("Hello from API router");
+});
 
 export default router;
