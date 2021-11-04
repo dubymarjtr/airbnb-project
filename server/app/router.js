@@ -24,4 +24,10 @@ router.get("/listings/:id", async (req, res) => {
     const listing = await collection.findOne({ _id: req.params.id });
     res.json(listing);
 });
+
+// delete a listing
+router.delete("/listings/:id", async (req, res) => {
+    const deletedListing = await collection.deleteOne({ _id: req.params.id });
+    res.json(deletedListing);
+});
 export default router;
