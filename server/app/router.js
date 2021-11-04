@@ -15,7 +15,7 @@ router.get("/", (_, res) => {
 
 // get all listings
 router.get("/listings", async (_, res) => {
-    const listingsData = await collection.find().toArray();
+    const listingsData = await collection.find({}).toArray();
     res.json(listingsData);
 });
 
