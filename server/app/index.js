@@ -2,7 +2,6 @@
 import express from "express";
 import config from "./config.js";
 import router from "./router.js";
-// TODO: Import the routes
 
 const app = express();
 
