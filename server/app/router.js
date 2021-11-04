@@ -19,4 +19,9 @@ router.get("/listings", async (_, res) => {
     res.json(listingsData);
 });
 
+// get listing by id (dynamic route)
+router.get("/listings/:id", async (req, res) => {
+    const listing = await collection.findOne({ _id: req.params.id });
+    res.json(listing);
+});
 export default router;
