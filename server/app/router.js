@@ -30,6 +30,11 @@ router.get("/reviews/:id", async (req, res) => {
     const reviews = await collection.findOne({ _id: req.params.id});
     res.json(reviews.reviews);
 })
+// post a new listing
+router.post("/listings", async (req,res) => {
+    const newListing = await collection.insertOne(req.body);
+    res.json(newListing);
+})
 // delete a listing
 router.delete("/listings/:id", async (req, res) => {
     const deletedListing = await collection.deleteOne({ _id: req.params.id });
