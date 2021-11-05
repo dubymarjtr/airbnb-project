@@ -25,6 +25,11 @@ router.get("/listings/:id", async (req, res) => {
     res.json(listing);
 });
 
+// get reviews for one listing
+router.get("/reviews/:id", async (req, res) => {
+    const reviews = await collection.findOne({ _id: req.params.id});
+    res.json(reviews.reviews);
+})
 // delete a listing
 router.delete("/listings/:id", async (req, res) => {
     const deletedListing = await collection.deleteOne({ _id: req.params.id });
