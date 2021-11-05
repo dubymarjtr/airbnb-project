@@ -13,8 +13,6 @@ app.use("/api", router);
 
 app.use(express.json());
 
-// TODO: Mount the routes (maybe 🤔 /api)
-
 app.listen(config.port, () => {
   console.log(`Server 🏃🏾‍♂️ at: http://localhost:${config.port}`);
 });
