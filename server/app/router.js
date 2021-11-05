@@ -35,9 +35,17 @@ router.post("/listings", async (req,res) => {
     const newListing = await collection.insertOne(req.body);
     res.json(newListing);
 })
+
 // delete a listing
 router.delete("/listings/:id", async (req, res) => {
     const deletedListing = await collection.deleteOne({ _id: req.params.id });
     res.json(deletedListing);
 });
+
+// update a listing
+router.put("/listings/", async (req, res) => {
+    const updatedListing = await collection.updateOne({ _id: req.body.id},
+    { $set: req.body.payload });
+    res.json(updatedListing);
+})
 export default router;
