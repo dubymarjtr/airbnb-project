@@ -57,6 +57,14 @@ router.delete("/listings/:id", async (req, res) => {
     res.json(deletedListing);
 });
 
+// delete a review
+router.delete("/reviews/:id", async (req, res) => {
+    const deletedReview = await collection.updateOne(   
+        {"reviews._id": req.params.id},       
+        { $pull: { "reviews": { '_id': req.params.id }}})
+    res.json(deletedReview);
+})
+
 // update a listing
 router.put("/listings/", async (req, res) => {
     const updatedListing = await collection.updateOne({ _id: req.body.id},
