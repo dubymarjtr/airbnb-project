@@ -14,10 +14,17 @@ router.get("/", (_, res) => {
 });
 
 // get all listings
-router.get("/listings", async (_, res) => {
-    const listingsData = await collection.find({}).toArray();
+router.get("/listings", async (req, res) => {
+    const listingsData = await collection.find(
+        { $or:[ 
+            {name: {$regex: (req.body.keywords? req.body.keywords : ""), $options: "i" }}, 
+            {description: {$regex: (req.body.keywords? req.body.keywords : ""), $options: "i"}},
+        ]})
+        .limit(req.body.limit? req.body.limit : 0)
+        .toArray();
     res.json(listingsData);
 });
+
 
 // get listing by id (dynamic route)
 router.get("/listings/:id", async (req, res) => {
