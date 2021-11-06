@@ -37,6 +37,15 @@ router.get("/reviews/:id", async (req, res) => {
     const reviews = await collection.findOne({ _id: req.params.id});
     res.json(reviews.reviews);
 })
+
+// post a review for one listing
+router.post("/reviews/:id", async (req,res) => {
+    const listing = await collection.updateOne(
+        { _id: req.params.id}, 
+        { $push : { reviews: req.body }});
+    res.json(listing);
+})
+
 // post a new listing
 router.post("/listings", async (req,res) => {
     const newListing = await collection.insertOne(req.body);
