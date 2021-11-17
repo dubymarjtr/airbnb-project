@@ -27,15 +27,35 @@ router.get("/", (_, res) => {
 
 // get all listings with optional filters
 router.get("/listings", async (req, res) => {
-    const listingsData = await collection.find(
-        { $or:[ 
-            {name: {$regex: (req.body.keywords? req.body.keywords : ""), $options: "i" }}, 
-            {description: {$regex: (req.body.keywords? req.body.keywords : ""), $options: "i"}},
-        ]})
-        .limit(req.body.limit? req.body.limit : 0)
-        .toArray();
-    res.json(listingsData);
-});
+    const keys = Object.keys(req.query);
+    const values = Object.values(req.query);
+
+    const listings = await collection.find({}).limit(100).toArray();
+
+    function filterListings(listings, keys, values) {
+        let index;
+        if(keys.includes('keywords'))
+        {
+            index = keys.indexOf('keywords')
+            listings = listings.filter(listing => listing.name.includes(values[index]) ||
+            listing.description.includes(values[index]))
+        }
+        if(keys.includes('price'))
+        {
+            index = keys.indexOf('price');
+            listings = listings.filter(listing => listing.price < Number(values[index]));
+        }
+        if(keys.includes('limit'))
+        {
+            index = keys.indexOf('limit')
+            listings = listings.slice(0,values[index]);
+        }
+        return listings;
+    }
+
+    const filteredListingsDone = filterListings(listings, keys, values);
+    res.json(filteredListingsDone);
+})
 
 // get listing by id (dynamic route)
 router.get("/listings/:id", async (req, res) => {
